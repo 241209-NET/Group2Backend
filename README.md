@@ -1,6 +1,7 @@
 # Group2Backend
 
-# Full stack *Something* App
+# Full stack Astronomy App
+ASTRO - An astronomy-based Social media.
 
 ## Project Members
     - Praween Pongpat
@@ -30,16 +31,24 @@
 
 
 ## User Stories
+- User login
+- User can browse NASA images.
+- User can search NASA images by date
+- User can search NASA images by start date and end date.
+- Users can leave comments on pictures.
 
 ## ER Diagram
-
+![alt text](image.png)
 
 ## MVP Goals
-- User login
-- User can Search locations by distance and by category
-- User can Leave review (rating and comment) on location.
-- Users, reviews, and locations can be saved in Database
+- Database of Users
+- Database of Images
+- Database of comments by Users.
+- App should be able to retrieve images from the NASA API and store it in its own database.
+- App should be able to allow users to Create comments under those images and store them in its database.
+- APp should be able to store created Users in its User database.
+
 
 ## Stretch Goals
-- User ranking based on reviews 
+- User authentication 
 
