@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("P2_ASTRO.TEST")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6905f517594467c622cff975a70252322fe06429")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("P2_ASTRO.TEST")]
 [assembly: System.Reflection.AssemblyTitleAttribute("P2_ASTRO.TEST")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
