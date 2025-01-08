@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2_ASTRO.TEST", "P2_ASTRO.TEST.csproj", "{B0473D67-FB4D-42C4-A384-098C8CD64190}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0473D67-FB4D-42C4-A384-098C8CD64190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0473D67-FB4D-42C4-A384-098C8CD64190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0473D67-FB4D-42C4-A384-098C8CD64190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0473D67-FB4D-42C4-A384-098C8CD64190}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DE45035-9EBB-4357-80A3-D6B28906AFAC}
+	EndGlobalSection
+EndGlobal
