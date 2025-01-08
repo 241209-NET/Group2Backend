@@ -12,21 +12,38 @@ public class UserRepository : IUserRepository
 
     public User CreateNewUser(User newUser)
     {
-        throw new NotImplementedException();
+        _astroContext.Users.Add(newUser);
+        _astroContext.SaveChanges();
+        return newUser;
     }
 
     public User? DeleteUserById(int id)
     {
-        throw new NotImplementedException();
+        User? user = GetUserById(id);
+        if(user is null) return null;
+
+        //user is not null, proceed
+        _astroContext.Users.Remove(user);
+        _astroContext.SaveChanges();
+        return user;
     }
 
+    /*
     public IEnumerable<User> GetAllUsers()
     {
         throw new NotImplementedException();
     }
+    */
 
     public User? GetUserById(int id)
     {
-        throw new NotImplementedException();
+        return _astroContext.Users.FirstOrDefault(u => u.UserId == id);
+    }
+
+    public User? LoginUserByUsernameAndPassword(string userName, string Password)
+    {
+        var user = _astroContext.Users.FirstOrDefault(u => u.Username == userName && u.Password == Password);
+        if(user is null) return null;
+        return user;
     }
 }

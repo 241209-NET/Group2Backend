@@ -5,13 +5,13 @@ namespace P2_ASTRO.API.Repository;
 public interface IUserRepository{
 
     User CreateNewUser(User newUser); 
-    IEnumerable<User> GetAllUsers(); 
+    //IEnumerable<User> GetAllUsers(); 
     User? GetUserById(int id); 
     
     //User? GetUserByUsername(string name);
     User? DeleteUserById(int id);
 
-
+    User? LoginUserByUsernameAndPassword(string userName, string Password);
 }
 
 public interface IReviewRepository{
@@ -28,13 +28,13 @@ public interface IReviewRepository{
 
 public interface IPODRepository{
 
-    POD GetPODbyDate(int date);
+    POD? GetPODbyDate(DateOnly date);
 
     IEnumerable<POD> GetAllPODs();
 
     POD CreateNewPOD(POD newPOD);
 
-    POD GetPODbyId(int PODId);
+    POD? GetPODbyId(int PODId);
     
 
 }

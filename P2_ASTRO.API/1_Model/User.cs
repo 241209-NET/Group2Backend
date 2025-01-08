@@ -8,6 +8,4 @@ public class User{
     [EmailAddress]
     public string? Email { get; set; }
     public required string Password { get; set; }
-
-    // public List<Contact> Contacts { get; set; } = []; //show relation "1" user to "N" contacts
 }
