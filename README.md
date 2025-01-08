@@ -1,10 +1,18 @@
 # Group2Backend
 
-# Full stack Astronomy App: ASTRO
-Astro - An astronomy-based Social media.
-Astro is a full stack application where users can browse NASA images and communicate with other astronomy enthusiasts.
-Users are allowed to search for previous NASA pictures of the day as well as view and write comments.
-Astro will be a place where astonomy lovers can meet up and talk about astonomy.
+# ASTRO: A Full-Stack Astronomy Social Media Application
+
+**Astro** is a full-stack web application designed to bring astronomy enthusiasts together. By combining the latest NASA imagery with a social platform, Astro offers users a unique space to explore the cosmos and connect with others who share their passion for astronomy.
+
+## Features
+
+- **NASA Image Browsing**: Explore a collection of stunning images provided by NASA, including the ability to search for specific dates or revisit previous NASA "Picture of the Day" selections.
+- **Community Interaction**: Engage with other users by viewing, posting, and commenting on images and discussions related to astronomy.
+- **User-Friendly Interface**: Navigate seamlessly through a visually appealing and intuitive interface designed to enhance user experience.
+
+## Purpose
+
+Astro is more than just an app—it's a community. It serves as a meeting place for astronomy lovers to share their thoughts, discuss celestial events, and immerse themselves in the wonders of the universe.
 
 
 ## Project Members
