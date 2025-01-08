@@ -22,15 +22,20 @@ public interface IReviewRepository{
 
     IEnumerable<Review> GetReviewsByUserId(int userId);
 
-    Review CreateNewReview 
+    Review CreateNewReview (Review newReview);
 
 }
 
 public interface IPODRepository{
 
     POD GetPODbyDate(int date);
+
     IEnumerable<POD> GetAllPODs();
+
     POD CreateNewPOD(POD newPOD);
+
+    POD GetPODbyId(int PODId);
+    
 
 }
 
