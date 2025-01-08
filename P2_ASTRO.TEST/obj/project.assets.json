@@ -5513,11 +5513,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
+      "projectUniqueName": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
       "projectName": "P2_ASTRO.TEST",
-      "projectPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
+      "projectPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
       "packagesPath": "C:\\Users\\Praween Pongpat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.TEST\\obj\\",
+      "outputPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.TEST\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Praween Pongpat\\AppData\\Roaming\\NuGet\\NuGet.Config"

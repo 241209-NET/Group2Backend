@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DRPnxWv4uJ8=",
+  "dgSpecHash": "BhhKUOpSdfc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
+  "projectFilePath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Praween Pongpat\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Praween Pongpat\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

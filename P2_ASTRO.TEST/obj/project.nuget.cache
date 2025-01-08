@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6dVjU8ZAiVE=",
+  "dgSpecHash": "WH4VdFVe0X0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
+  "projectFilePath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.TEST\\P2_ASTRO.TEST.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Praween Pongpat\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\Praween Pongpat\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

@@ -5210,11 +5210,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
+      "projectUniqueName": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
       "projectName": "P2_ASTRO.API",
-      "projectPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
+      "projectPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
       "packagesPath": "C:\\Users\\Praween Pongpat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_local\\P2_ASTRO.API\\obj\\",
+      "outputPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Praween Pongpat\\AppData\\Roaming\\NuGet\\NuGet.Config"
