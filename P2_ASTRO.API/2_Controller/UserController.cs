@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using P2_ASTRO.API.DTO;
+using P2_ASTRO.API.Service;
 
 namespace P2_ASTRO.API.Controller;
 
@@ -6,8 +8,7 @@ namespace P2_ASTRO.API.Controller;
 [ApiController]
 public class UserController : ControllerBase
 {    
-
-        private readonly IUserService _userService;
+    private readonly IUserService _userService;
 
     public UserController(IUserService userService)
     {
@@ -15,6 +16,7 @@ public class UserController : ControllerBase
     }
 
     
+    //Might switch to model later?
     [HttpPost]
     public IActionResult CreateNewUser([FromBody] UserInDTO newUser)
     {
