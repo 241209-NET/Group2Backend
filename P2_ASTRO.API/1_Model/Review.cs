@@ -5,4 +5,5 @@ public class Review{
     public int UserId { get; set; }
     public int PODId { get; set; }
     public required string Comment { get; set; }
+    public DateTime CommentTime { get; set; }
 }

@@ -16,7 +16,7 @@ public interface IUserRepository{
 
 public interface IReviewRepository{
 
-    Review GetReviewById(int id);
+    Review? GetReviewById(int id);
 
     IEnumerable<Review> GetAllReviews(); 
 
@@ -35,8 +35,6 @@ public interface IPODRepository{
     POD CreateNewPOD(POD newPOD);
 
     POD? GetPODbyId(int PODId);
-    
-
 }
 
 //POD----

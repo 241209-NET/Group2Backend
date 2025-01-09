@@ -1,5 +1,6 @@
 using P2_ASTRO.API.Model;
 using P2_ASTRO.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace P2_ASTRO.API.Repository;
 
@@ -17,7 +18,7 @@ public class PODRepository : IPODRepository
 
     public IEnumerable<POD> GetAllPODs()
     {
-        return _astroContext.PODs.ToList(); //TODO might need to .Include(comments)*****************
+        return _astroContext.PODs.Include(r => r.Reviews).Include(u => u.Users).ToList(); //TODO might need to .Include(comments)*****************
     }
 
     public POD? GetPODbyDate(DateOnly date)

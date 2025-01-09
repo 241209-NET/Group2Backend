@@ -1,26 +1,21 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using P2_ASTRO.API.Model;
 
 namespace P2_ASTRO.API.DTO;
 
 public class UserInDTO
 {
-    public required string Name {get; set;}
+    public required string Username {get; set;}
     public required string Password {get; set;}
-    public User UserToDTO()
-    {
-        var newUser = new User()
-        {
-            Username = Name,
-            Password = this.Password
-        };
-        return newUser;
+    [EmailAddress]
+    public string? Email { get; set; }
     }
-}
 
 public class UserOutDTO
 {
-    public required string Name { get; set; }
-
-    public List<Review> Reviews = [];
+    public int UserId { get; set; }
+    public required string Username { get; set; }
+    [EmailAddress]
+    public string? Email { get; set; }
 }

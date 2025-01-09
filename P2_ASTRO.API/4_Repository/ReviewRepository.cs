@@ -12,24 +12,23 @@ public class ReviewRepository : IReviewRepository
 
     public Review CreateNewReview(Review newReview)
     {
-        throw new NotImplementedException();
-        // _astroContext.CreateNewReview(newReview);
+        _astroContext.Reviews.Add(newReview);
+        _astroContext.SaveChanges();
+        return newReview;
     }
 
     public IEnumerable<Review> GetAllReviews()
     {
-        throw new NotImplementedException();
+        return _astroContext.Reviews.ToList();
     }
 
-    public Review GetReviewById(int reviewId)
+    public Review? GetReviewById(int reviewId)
     {
-        throw new NotImplementedException();
-        //  _astroContext.GetReviewById(reviewId);
+        return _astroContext.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
     }
 
     public IEnumerable<Review> GetReviewsByUserId(int userId)
     {
-        throw new NotImplementedException();
-        // _astroContext.GetReviewsByUserId(userId);
+        return _astroContext.Reviews.Where(r => r.UserId == userId).ToList();
     }
 }

@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("b19f34f5-3a14-40f6-886e-d41831f02ffa")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("P2_ASTRO.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+95f0bc23a76bd626d0a987584c23ecbc6ac3cc5e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a67650fb09abca86b24d4cd13386972ba9248452")]
 [assembly: System.Reflection.AssemblyProductAttribute("P2_ASTRO.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("P2_ASTRO.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
