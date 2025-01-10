@@ -2,8 +2,7 @@ using Moq;
 using P2_ASTRO.API.Model;
 using P2_ASTRO.API.Repository;
 using P2_ASTRO.API.Service;
-using AutoMapper;
-using Microsoft.IdentityModel.Tokens;
+using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Util;
 
 namespace P2_ASTRO.TEST;
@@ -13,9 +12,8 @@ public class UnitTest1
     [Fact]
     public void CreateNewUserTest()
     {
+        // Arrange
         Mock<IUserRepository> mockRepo = new();
-        Mock<IMapper> mockMapper = new ();
-        //Mock<Utility> mockUtil = new();
         API.Util.Utility util = new();
         UserService userService = new (mockRepo.Object, util); //, mockMapper.Object);
 
@@ -41,10 +39,30 @@ public class UnitTest1
     }
 
     [Fact]
+    public void UserNotFoundExceptionTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
+
+        // Act
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
+        var id = newUser.UserId;
+        var action = () => userService.GetUserById(id); 
+
+        // Assert
+        Assert.Throws<UserNotFoundException>(action);
+    }
+
+
+    [Fact]
     public void CreateReviewTest()
     {
         Mock<IReviewRepository> mockRepo = new();
-        Mock<IMapper> mockMapper = new ();
+        //Mock<IMapper> mockMapper = new ();
         API.Util.Utility util = new();
         ReviewService reviewService = new (mockRepo.Object, util); //mockMapper.Object);
         List<Review> reviewList =
