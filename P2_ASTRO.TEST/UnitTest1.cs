@@ -2,7 +2,7 @@ using Moq;
 using P2_ASTRO.API.Model;
 using P2_ASTRO.API.Repository;
 using P2_ASTRO.API.Service;
-using AutoMapper;
+//using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using P2_ASTRO.API.Util;
 
@@ -13,6 +13,7 @@ public class UnitTest1
     [Fact]
     public void CreateNewUserTest()
     {
+        // Arrange
         Mock<IUserRepository> mockRepo = new();
         Mock<IMapper> mockMapper = new ();
         //Mock<Utility> mockUtil = new();
@@ -39,6 +40,29 @@ public class UnitTest1
         mockRepo.Verify(x => x.CreateNewUser(It.IsAny<User>()), Times.Once());
             
     }
+
+    [Fact]
+    public void UserNotFoundExceptionTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        Mock<IMapper> mockMapper = new ();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetUserByUsername(It.IsAny<string>())).Returns((User)null);
+
+        // Act
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
+        var username = newUser.Username;
+        var action = () => userService.GetUserByUsername(username); 
+
+        // Assert
+        Assert.Throws<UserNotFoundException>(action);
+
+
+    }
+
 
     [Fact]
     public void CreateReviewTest()

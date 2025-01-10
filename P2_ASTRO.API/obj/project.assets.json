@@ -5205,19 +5205,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Praween Pongpat\\.nuget\\packages\\": {}
+    "C:\\Users\\justi\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
+      "projectUniqueName": "C:\\Users\\justi\\Desktop\\Revature\\Work\\Project_2\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
       "projectName": "P2_ASTRO.API",
-      "projectPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
-      "packagesPath": "C:\\Users\\Praween Pongpat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Praween Pongpat\\Desktop\\241209\\P2_Astro\\Group2Backend\\P2_ASTRO.API\\obj\\",
+      "projectPath": "C:\\Users\\justi\\Desktop\\Revature\\Work\\Project_2\\Group2Backend\\P2_ASTRO.API\\P2_ASTRO.API.csproj",
+      "packagesPath": "C:\\Users\\justi\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\justi\\Desktop\\Revature\\Work\\Project_2\\Group2Backend\\P2_ASTRO.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Praween Pongpat\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\justi\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
