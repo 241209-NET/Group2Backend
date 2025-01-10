@@ -1,8 +1,9 @@
-namespace P2_ASTRO.API.Exception;
+namespace P2_ASTRO.API.Exceptions;
 
 public class UserNotFoundException : Exception
 {
-    public UserNotFoundException() {}
+    public UserNotFoundException() 
+       : this("User not found.") {}
 
     public UserNotFoundException(string message) 
         : base(message) {}

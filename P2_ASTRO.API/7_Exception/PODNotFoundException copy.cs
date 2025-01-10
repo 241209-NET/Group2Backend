@@ -1,12 +1,13 @@
-namespace P2_ASTRO.API.Exception;
+namespace P2_ASTRO.API.Exceptions;
 
-public class UserNotFoundException : Exception
+public class PODNotFoundException : Exception
 {
-    public UserNotFoundException() {}
+    public PODNotFoundException() 
+       : this("picture not found.") {}
 
-    public UserNotFoundException(string message) 
+    public PODNotFoundException(string message) 
         : base(message) {}
 
-    public UserNotFoundException(string message, Exception inner) 
+    public PODNotFoundException(string message, Exception inner) 
         : base(message, inner) {}
 }
