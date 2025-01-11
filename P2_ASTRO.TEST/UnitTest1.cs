@@ -5,11 +5,13 @@ using P2_ASTRO.API.Service;
 using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Util;
 using P2_ASTRO.API.DTO;
+using NuGet.Frameworks;
 
 namespace P2_ASTRO.TEST;
 
 public class UnitTest1
 {
+     #region CreateTests
     [Fact]
     public void CreateNewUserTest()
     {
@@ -106,6 +108,185 @@ public class UnitTest1
         Assert.Equal(expectedPOD.Title, newPOD.Title);
         Assert.Equal(expectedPOD.Explanation, newPOD.Explanation);  
     }
+    #endregion
+
+    #region GetAllTests
+
+    [Fact]
+    public void GetAllReviewsTest()
+    {
+        // Arrange
+        Mock<IReviewRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        ReviewService reviewService = new (mockRepo.Object, util);
+
+        var reviewList = new List<Review> 
+        {
+            new Review()
+            {
+                Comment = "Test 1",
+                ReviewId = 1,
+                UserId = 1,
+                PODId = 1,
+                CommentTime = DateTime.UtcNow
+            },
+            new Review()
+            {
+                Comment = "Test 2",
+                ReviewId = 2,
+                UserId = 2,
+                PODId = 2,
+                CommentTime = DateTime.UtcNow
+            },
+            new Review()
+            {
+                Comment = "Test 3",
+                ReviewId = 3,
+                UserId = 3,
+                PODId = 3,
+                CommentTime = DateTime.UtcNow
+            },
+        };
+
+        mockRepo.Setup(repo => repo.GetAllReviews()).Returns(reviewList);
+
+        var dtoList = new List<ReviewOutDTO>();
+        foreach(var r in reviewList)
+        {
+            var dto = util.ReviewToReviewOutDTO(r);
+            dtoList.Add(dto);
+        }
+        
+        //Act
+        var result = reviewService.GetAllReviews().ToList();
+        
+        //Assert
+        for (int i = 0; i < dtoList.Count; i++)
+        {
+            Assert.Equal(dtoList[i].Comment, result[i].Comment);
+            Assert.Equal(dtoList[i].CommentTime, result[i].CommentTime);
+            Assert.Equal(dtoList[i].UserId, result[i].UserId); 
+        }
+    }
+
+    [Fact]
+    public void GetAllPODsTest()
+    {
+        // Arrage
+        Mock<IPODRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        PODService podService = new(mockRepo.Object, util);
+
+        var podList = new List<POD>
+        {
+            new POD() {PODId = 1, Explanation = "test 1", Title = "Test title 1", URL = "www.test.com", Date = DateOnly.FromDateTime(DateTime.Now)},
+            new POD() {PODId = 2, Explanation = "test 2", Title = "Test title 2", URL = "www.test.com", Date = DateOnly.FromDateTime(DateTime.Now)},
+            new POD() {PODId = 3, Explanation = "test 3", Title = "Test title 3", URL = "www.test.com", Date = DateOnly.FromDateTime(DateTime.Now)}
+        };
+
+        mockRepo.Setup(repo => repo.GetAllPODs()).Returns(podList);
+
+        // Act
+        var result = podService.GetAllPODs().ToList();
+
+        // Assert
+        for(int i = 0; i < podList.Count; i++)
+        {
+            Assert.Equal(result[i].Date, podList[i].Date);
+            Assert.Equal(result[i].Explanation, podList[i].Explanation);
+            Assert.Equal(result[i].PODId, podList[i].PODId);
+            Assert.Equal(result[i].Title, podList[i].Title);
+            Assert.Equal(result[i].URL, podList[i].URL);
+        }
+    
+    }
+    #endregion
+
+    #region GetByIdTests
+    [Fact]
+    public void GetUserByIdTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+        var usersList = new List<User>
+        {
+            new User() {Username = "TestUser1", Password = "Password1", UserId = 1, Email = "Test1@gmail.com"},
+            new User() {Username = "TestUser2", Password = "Password2", UserId = 2, Email = "Test2@gmail.com"},
+            new User() {Username = "TestUser3", Password = "Password3", UserId = 3, Email = "Test3@gmail.com"},
+        };
+
+        var expectedUser = new User(){Username = "TestUser4", Password = "Password4", UserId = 4, Email = "Test4@gmail.com"};
+
+        mockRepo.Setup(repo => repo.GetUserById(expectedUser.UserId)).Returns(expectedUser);
+
+        // Act
+        var user = userService.GetUserById(expectedUser.UserId);
+
+        // Assert
+        Assert.NotNull(user);
+        Assert.Equal(expectedUser.UserId, user.UserId);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Email, user.Email);
+    }
+
+    // [Fact]
+    // public void GetReviewById()
+    // {
+    //     // Arrange
+    //     Mock<IReviewRepository> mockRepo = new();
+    //     API.Util.Utility util = new();
+    //     ReviewService reviewService = new (mockRepo.Object, util);
+
+    //     var expectedReview = new Review() 
+    //     {
+    //         Comment = "This is a test comment!", 
+    //         ReviewId = 1,
+    //         UserId = 11,
+    //         PODId = 111,
+    //         CommentTime = DateTime.UtcNow,
+    //     };
+
+    //     mockRepo.Setup(repo => repo.GetReviewById(expectedReview.ReviewId)).Returns(expectedReview);
+
+    //     // Act
+    //     var review = reviewService.GetReviewById(expectedReview.UserId);
+
+    //     Assert.NotNull(review);
+    //     Assert.Equal(expectedReview.Comment, review.Comment);
+    //     Assert.Equal(expectedReview.CommentTime, review.CommentTime);
+    //     Assert.Equal(expectedReview.UserId, review.UserId);
+    //     Asset.Equal(expectedReview.ReviewId, review.ReviewId);
+
+    // }
+
+    [Fact]
+    public void GetPODbyIdTest()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        PODService podService = new (mockRepo.Object, util);
+
+        var expectedPOD = new POD() {PODId = 123, Title = "Title", URL = "www.test.com", Explanation = "test", Date = DateOnly.FromDateTime(DateTime.UtcNow)};
+
+        mockRepo.Setup(repo => repo.GetPODbyId(expectedPOD.PODId)).Returns(expectedPOD);
+
+        
+        // Act
+        var pod = podService.GetPODbyId(expectedPOD.PODId);
+
+        // Assert
+        Assert.Equal(expectedPOD.PODId, pod?.PODId);
+        Assert.Equal(expectedPOD.Date, pod?.Date);
+        Assert.Equal(expectedPOD.Title, pod?.Title);
+        Assert.Equal(expectedPOD.URL, pod?.URL);
+        Assert.Equal(expectedPOD.Explanation, pod?.Explanation);
+
+    }
+    #endregion
 
     [Fact]
     public void UserNotFoundExceptionTest()
