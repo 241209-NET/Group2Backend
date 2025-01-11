@@ -3,7 +3,9 @@ namespace P2_ASTRO.API.Exceptions;
 
 public class ReviewNotFoundException : Exception
 {
-    public ReviewNotFoundException() {}
+    public ReviewNotFoundException() 
+        : this("comment not found.")
+    {}
 
     public ReviewNotFoundException(string message) 
         : base(message) {}
