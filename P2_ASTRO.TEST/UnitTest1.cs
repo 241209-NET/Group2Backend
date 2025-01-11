@@ -71,6 +71,42 @@ public class UnitTest1
             
     }
 
+            [Fact]
+    public void CreateNewPODTest()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        PODService podService = new (mockRepo.Object, util);
+
+        var expectedPOD = new POD() 
+        {
+            PODId = 1,
+            URL = "www.test.com",
+            Title = "Test",
+            Explanation = "This is a test"
+        };
+
+        mockRepo.Setup(repo => repo.CreateNewPOD(It.IsAny<POD>())).Returns(expectedPOD);
+
+        // Act
+        var newPODInDTO =  new PODInDTO() 
+        {
+            Date = DateOnly.FromDateTime(DateTime.Now),
+            URL = "www.test.com",
+            Title = "Test",
+            Explanation = "This is a test"
+        };
+
+        var newPOD = podService.CreateNewPOD(newPODInDTO);
+
+        // Assert
+        Assert.NotNull(newPOD);
+        Assert.Equal(expectedPOD.URL, newPOD.URL);
+        Assert.Equal(expectedPOD.Title, newPOD.Title);
+        Assert.Equal(expectedPOD.Explanation, newPOD.Explanation);  
+    }
+
     [Fact]
     public void UserNotFoundExceptionTest()
     {
@@ -120,4 +156,29 @@ public class UnitTest1
         Assert.Throws<ReviewNotFoundException>(action);
     }
 
+        [Fact]
+    public void PODNotFoundExceptionTest()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        PODService podService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetPODbyId(It.IsAny<int>())).Returns((POD)null!);
+
+        // Act
+        var newPOD =  new POD()
+        {
+            PODId = 1,
+            URL = "www.test.com",
+            Title = "Test",
+            Explanation = "This is a test"
+        };
+
+        var id = newPOD.PODId;
+        var action = () => podService.GetPODbyId(id); 
+
+        // Assert
+        Assert.Throws<PODNotFoundException>(action);
+    }
 }
