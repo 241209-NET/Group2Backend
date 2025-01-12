@@ -39,6 +39,19 @@ public class ReviewService : IReviewService
         return _utility.ReviewToReviewOutDTO(review);
     }
 
+    public ReviewOutDTO? DeleteReviewById(int id)
+    {
+        var review = _reviewRepository.GetReviewById(id);
+
+        if (review is not null)
+        {
+            _reviewRepository.DeleteReviewById(id);
+            return _utility.ReviewToReviewOutDTO(review);
+        }
+
+        throw new ReviewNotFoundException();
+    }
+
     public IEnumerable<ReviewOutDTO> GetReviewsByUserId(int userId)
     {
         var reviews = _reviewRepository.GetReviewsByUserId(userId);

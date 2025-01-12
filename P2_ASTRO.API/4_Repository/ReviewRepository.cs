@@ -1,5 +1,6 @@
 using P2_ASTRO.API.Model;
 using P2_ASTRO.API.Data;
+using P2_ASTRO.API.Exceptions;
 
 namespace P2_ASTRO.API.Repository;
 
@@ -25,6 +26,18 @@ public class ReviewRepository : IReviewRepository
     public Review? GetReviewById(int reviewId)
     {
         return _astroContext.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
+    }
+
+    public Review? DeleteReviewById(int id)
+    {
+        Review? review = GetReviewById(id);
+        if(review is null) 
+            throw new ReviewNotFoundException();
+
+        // review is not null, proceed
+        _astroContext.Reviews.Remove(review);
+        _astroContext.SaveChanges();
+        return review;
     }
 
     public IEnumerable<Review> GetReviewsByUserId(int userId)
