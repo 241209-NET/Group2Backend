@@ -288,6 +288,52 @@ public class UnitTest1
     }
     #endregion
 
+    #region DeleteTests
+
+    [Fact]
+    public void DeleteUserByIdTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        var expectedUser = new User() {Username = "DeleteMe", Password = "P@ssw0rd", UserId = 3, Email = "deleteMe@hotmail.com" };
+
+        mockRepo.Setup(repo => repo.GetUserById(expectedUser.UserId)).Returns(expectedUser);
+
+        // Act
+        var toDelete = userService.DeleteUserById(expectedUser.UserId);
+
+        //Assert
+        Assert.Equal(expectedUser.UserId, toDelete?.UserId);
+        Assert.Equal(expectedUser.Username, toDelete?.Username);
+        Assert.Equal(expectedUser.Email, toDelete?.Email);
+
+    }
+
+    [Fact]
+    public void DeleteReviewByIdTest()
+    {
+        // Arrange
+        Mock<IReviewRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        ReviewService reviewService = new (mockRepo.Object, util);
+
+        var expectedReview  = new Review() { Comment = "delete this", CommentTime = DateTime.UtcNow, UserId = 4 };
+        mockRepo.Setup(repo => repo.GetReviewById(expectedReview.UserId)).Returns(expectedReview);
+
+        // Act
+        var toDelete = reviewService.DeleteReviewById(expectedReview.UserId);
+
+        // Assert
+        Assert.Equal(expectedReview.UserId, toDelete?.UserId);
+        Assert.Equal(expectedReview.Comment, toDelete?.Comment);
+        Assert.Equal(expectedReview.CommentTime, toDelete?.CommentTime);
+    }
+    #endregion
+
+    #region ExceptionTests
     [Fact]
     public void UserNotFoundExceptionTest()
     {
@@ -362,4 +408,5 @@ public class UnitTest1
         // Assert
         Assert.Throws<PODNotFoundException>(action);
     }
+    #endregion
 }
