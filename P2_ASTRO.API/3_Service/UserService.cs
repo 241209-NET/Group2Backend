@@ -36,6 +36,13 @@ public class UserService : IUserService
         return _utility.UserToUserOutDTO(user);
     }
 
+    public UserOutDTO? GetUserByUsername(string username)
+    {
+        var user = _userRepository.GetUserByUsername(username);
+        if(user is null) return null;
+        return _utility.UserToUserOutDTO(user);
+    }
+
     public UserOutDTO? LoginUserByUsernameAndPassword(string userName, string password)
     {
         var user = _userRepository.LoginUserByUsernameAndPassword(userName, password);

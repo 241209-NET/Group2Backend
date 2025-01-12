@@ -8,6 +8,7 @@ public interface IUserService{
     UserOutDTO? GetUserById(int id); 
     UserOutDTO? DeleteUserById(int id);
     UserOutDTO? LoginUserByUsernameAndPassword(string userName, string Password);
+    UserOutDTO? GetUserByUsername(string username);
 }
 
 public interface IReviewService{
