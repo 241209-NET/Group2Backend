@@ -1,4 +1,5 @@
 using P2_ASTRO.API.DTO;
+using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Repository;
 using P2_ASTRO.API.Util;
 
@@ -8,7 +9,8 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly Utility _utility;
-    public UserService(IUserRepository userRepository, Utility utility){
+    public UserService(IUserRepository userRepository, Utility utility)
+    {
         _userRepository = userRepository;
         _utility = utility;
     }
@@ -17,29 +19,42 @@ public class UserService : IUserService
     {
         var user = _utility.UserInDTOToUser(newUserInDTO);
         var newUser = _userRepository.CreateNewUser(user);
+
         return _utility.UserToUserOutDTO(newUser);
     }
 
     public UserOutDTO? DeleteUserById(int id)
     {
         var user = _userRepository.GetUserById(id);
-        if(user is null) return null;
+
+        if (user is null) 
+            throw new UserNotFoundException();
+
         var deletedUser = _userRepository.DeleteUserById(id);
-        if(deletedUser is null) return null;
+
+        if (deletedUser is null) 
+            throw new UserNotFoundException();
+
         return _utility.UserToUserOutDTO(deletedUser);
     }
 
     public UserOutDTO? GetUserById(int id)
     {
         var user = _userRepository.GetUserById(id);
-        if(user is null) return null;
+
+        if (user is null) 
+            throw new UserNotFoundException();
+
         return _utility.UserToUserOutDTO(user);
     }
 
     public UserOutDTO? LoginUserByUsernameAndPassword(string userName, string password)
     {
         var user = _userRepository.LoginUserByUsernameAndPassword(userName, password);
-        if(user is null) return null;
+
+        if (user is null)
+            throw new UserNotFoundException();
+
         return _utility.UserToUserOutDTO(user);
     }
 }
