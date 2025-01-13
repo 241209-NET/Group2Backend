@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P2_ASTRO.API.Data;
 
@@ -11,9 +12,11 @@ using P2_ASTRO.API.Data;
 namespace P2_ASTRO.API.Migrations
 {
     [DbContext(typeof(AstroContext))]
-    partial class AstroContextModelSnapshot : ModelSnapshot
+    [Migration("20250113201843_model_update")]
+    partial class model_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
