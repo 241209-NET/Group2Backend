@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using P2_ASTRO.API.DTO;
 using P2_ASTRO.API.Service;
-using P2_ASTRO.API.Util;
 
 namespace P2_ASTRO.API.Controller;
 
@@ -19,28 +18,39 @@ public class ReviewController : ControllerBase
     public IActionResult GetAllReviews()
     {
         var reviewList = _reviewService.GetAllReviews();
-        if(reviewList is null) return BadRequest("something is wrong at on GetAllReviews()");
+        if(reviewList is null || !reviewList.Any()) 
+        {
+            return NotFound("No reviews found.");
+        }
         return Ok(reviewList);
     }
 
-    [HttpGet]
-    public IActionResult GetReviewById([FromQuery] int reviewId){
+    [HttpGet("{reviewId}")]
+    public IActionResult GetReviewById(int reviewId){
         var review = _reviewService.GetReviewById(reviewId);
-        if(review is null) return BadRequest("something is wrong at on GetReviewById()");
+        if(review is null)
+        {
+            return NotFound("No reviews found for reviewId = " + reviewId);
+        }
         return Ok(review);
     }
 
     [HttpPost]
     public IActionResult CreateNewReview([FromBody] ReviewInDTO newReviewInDTO){
         var review = _reviewService.CreateNewReview(newReviewInDTO);
-        if(review is null) return BadRequest("something is wrong at on CreateNewReview()");
+        if(review is null){
+            return BadRequest("Wrong format input for createNewReview");
+        }
         return Ok(review);
     }
 
-    [HttpGet]
-    public IActionResult GetReviewsByUserId([FromQuery] int userId){
+    [HttpGet("user/{userId}")]
+    public IActionResult GetReviewsByUserId(int userId){
         var review = _reviewService.GetReviewsByUserId(userId);
-        if(review is null) return BadRequest("something is wrong at on GetReviewsByUserId()");
+        if(review is null)
+        {
+            return NotFound("No reviews found for userId = " + userId);
+        }
         return Ok(review);
     }
 }

@@ -1,14 +1,66 @@
 using Microsoft.AspNetCore.Mvc;
+using P2_ASTRO.API.DTO;
+using P2_ASTRO.API.Service;
 
 namespace P2_ASTRO.API.Controller;
 
 [Route("api/[controller]")]
 [ApiController]
 public class PODController : ControllerBase
-{    
-    [HttpGet]
-    public IActionResult Welcome()
+{
+    private readonly IPODService _podService;
+
+    public PODController(IPODService podService)
     {
-        return Ok("Hello World");
+        _podService = podService;
+    }
+
+    [HttpGet]
+    public IActionResult GetAllPODs()
+    {
+        var podList = _podService.GetAllPODs();
+        if (podList == null || !podList.Any())
+        {
+            return NotFound("No PODs found.");
+        }
+        return Ok(podList);
+    }
+
+    [HttpGet("{podId}")]
+    public IActionResult GetPODById(int podId)
+    {
+        var pod = _podService.GetPODbyId(podId);
+        if (pod == null)
+        {
+            return NotFound("No POD found for podId = " + podId);
+        }
+        return Ok(pod);
+    }
+
+    [HttpGet("date/{date}")]
+    public IActionResult GetPODByDate(DateOnly date)
+    {
+        var pod = _podService.GetPODbyDate(date);
+        if (pod == null)
+        {
+            return NotFound("No POD found for date = " + date);
+        }
+        return Ok(pod);
+    }
+
+    [HttpPost]
+    public IActionResult CreateNewPOD([FromBody] PODInDTO newPODInDTO)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var pod = _podService.CreateNewPOD(newPODInDTO);
+        if (pod == null)
+        {
+            return BadRequest("Invalid input for creating a new POD.");
+        }
+        return CreatedAtAction(nameof(GetPODById), new { podId = pod.PODId }, pod);
     }
 }
