@@ -15,6 +15,12 @@ public class UserService : IUserService
         _utility = utility;
     }
 
+    public IEnumerable<UserOutDTO> GetAllUsers()
+    {
+        var users = _userRepository.GetAllUsers();
+        return users.Select(_utility.UserToUserOutDTO);
+    }
+
     public UserOutDTO CreateNewUser(UserInDTO newUserInDTO)
     {
         var user = _utility.UserInDTOToUser(newUserInDTO);

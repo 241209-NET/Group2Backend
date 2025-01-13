@@ -5,7 +5,7 @@ namespace P2_ASTRO.API.Repository;
 public interface IUserRepository{
 
     User CreateNewUser(User newUser); 
-    //IEnumerable<User> GetAllUsers(); 
+    IEnumerable<User> GetAllUsers(); 
     User? GetUserById(int id); 
     
     //User? GetUserByUsername(string name);
