@@ -24,6 +24,8 @@ public interface IReviewRepository{
 
     IEnumerable<Review> GetReviewsByUserId(int userId);
 
+    Review? DeleteReviewById(int id);
+
     Review CreateNewReview (Review newReview);
 
 }

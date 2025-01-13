@@ -27,16 +27,26 @@ public class UserService : IUserService
     {
         var user = _userRepository.GetUserById(id);
 
-        if (user is null) 
-            throw new UserNotFoundException();
+        if (user is not null)
+        {
+            _userRepository.DeleteUserById(id);
+            return _utility.UserToUserOutDTO(user);
+        }
 
-        var deletedUser = _userRepository.DeleteUserById(id);
-
-        if (deletedUser is null) 
-            throw new UserNotFoundException();
-
-        return _utility.UserToUserOutDTO(deletedUser);
+        throw new UserNotFoundException();
     }
+
+    /*
+        public Order DeleteOrderById(int id)
+    {
+        var order = GetOrderById(id);
+
+        if(order is not null) 
+            _OrderRepository.DeleteOrderById(id);
+
+        return order!;
+    }
+    */
 
     public UserOutDTO? GetUserById(int id)
     {
