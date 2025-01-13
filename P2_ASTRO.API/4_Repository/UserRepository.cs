@@ -1,5 +1,6 @@
 using P2_ASTRO.API.Model;
 using P2_ASTRO.API.Data;
+using P2_ASTRO.API.Exceptions;
 
 namespace P2_ASTRO.API.Repository;
 
@@ -20,7 +21,9 @@ public class UserRepository : IUserRepository
     public User? DeleteUserById(int id)
     {
         User? user = GetUserById(id);
-        if(user is null) return null;
+
+        if(user is null) 
+            throw new UserNotFoundException();
 
         //user is not null, proceed
         _astroContext.Users.Remove(user);
