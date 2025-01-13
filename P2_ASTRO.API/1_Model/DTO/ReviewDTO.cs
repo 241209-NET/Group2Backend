@@ -11,6 +11,7 @@ public class ReviewInDTO
 public class ReviewOutDTO
 {
     public required string Comment { get; set; }
+    public int ReviewId { get; set; }
     public  int UserId { get; set; }
     public DateTime CommentTime { get; set; }
 }

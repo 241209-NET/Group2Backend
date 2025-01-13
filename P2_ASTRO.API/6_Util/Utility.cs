@@ -26,7 +26,8 @@ public class Utility{
         return new ReviewOutDTO{
             Comment = review.Comment,
             UserId = review.UserId,
-            CommentTime = review.CommentTime
+            CommentTime = review.CommentTime,
+            ReviewId = review.ReviewId
         };
     }
 
