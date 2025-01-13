@@ -10,9 +10,7 @@ namespace P2_ASTRO.API.Controller;
 public class ReviewController : ControllerBase
 {
     private readonly IReviewService _reviewService;
-    public ReviewController(IReviewService reviewService){
-        _reviewService = reviewService;
-    } 
+    public ReviewController(IReviewService reviewService) => _reviewService = reviewService;
 
     [HttpGet]
     public IActionResult GetAllReviews()

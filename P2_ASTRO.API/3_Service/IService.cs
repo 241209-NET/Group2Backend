@@ -5,10 +5,11 @@ namespace P2_ASTRO.API.Service;
 
 public interface IUserService{
     UserOutDTO CreateNewUser(UserInDTO newUserInDTO); 
+
+    //UserOutDTO GetUserByUsername(string Username);
     UserOutDTO? GetUserById(int id); 
     UserOutDTO? DeleteUserById(int id);
     UserOutDTO? LoginUserByUsernameAndPassword(string userName, string Password);
-    UserOutDTO? GetUserByUsername(string username);
 }
 
 public interface IReviewService{

@@ -26,6 +26,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+/*
     [HttpGet("username/{username}")]
     public IActionResult GetUserByUsername(string username)
     {
@@ -36,6 +37,7 @@ public class UserController : ControllerBase
         }
         return Ok(user);
     }
+    */
 
     [HttpPost]
     public IActionResult CreateNewUser([FromBody] UserInDTO newUserInDTO)

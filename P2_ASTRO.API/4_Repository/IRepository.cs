@@ -12,8 +12,6 @@ public interface IUserRepository{
     User? DeleteUserById(int id);
 
     User? LoginUserByUsernameAndPassword(string userName, string Password);
-
-    User? GetUserByUsername(string username);
 }
 
 public interface IReviewRepository{

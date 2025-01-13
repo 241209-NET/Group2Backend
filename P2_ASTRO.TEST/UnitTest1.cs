@@ -5,13 +5,12 @@ using P2_ASTRO.API.Service;
 using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Util;
 using P2_ASTRO.API.DTO;
-using NuGet.Frameworks;
 
 namespace P2_ASTRO.TEST;
 
 public class UnitTest1
 {
-     #region CreateTests
+    #region CreateTests
     [Fact]
     public void CreateNewUserTest()
     {
@@ -30,7 +29,7 @@ public class UnitTest1
         mockRepo.Setup(repo => repo.CreateNewUser(It.IsAny<User>())).Returns(expectedUser);
 
         // Act
-        var newUserInDTO =  new UserInDTO(){Username = "JTheyskens", Password = "password3"};
+        var newUserInDTO =  new UserInDTO(){Username = "JTheyskenqs", Password = "password3"};
         var newUser = userService.CreateNewUser(newUserInDTO);
         newUser.UserId = 7;
 
@@ -342,21 +341,17 @@ public class UnitTest1
         API.Util.Utility util = new();
         UserService userService = new (mockRepo.Object, util);
 
-        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null!);
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
 
         // Act
-        var newUser =  new User()
-        {
-            Username = "NotFoundUser", 
-            Password = "exception"
-        };
-
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
         var id = newUser.UserId;
         var action = () => userService.GetUserById(id); 
 
         // Assert
         Assert.Throws<UserNotFoundException>(action);
     }
+
 
         [Fact]
     public void ReviewNotFoundExceptionTest()
