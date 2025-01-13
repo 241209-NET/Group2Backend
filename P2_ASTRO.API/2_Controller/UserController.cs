@@ -59,6 +59,17 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+    [HttpGet]
+    public IActionResult GetAllReviews()
+    {
+        var userList = _userService.GetAllUsers();
+        if(userList is null || !userList.Any()) 
+        {
+            return NotFound("No users found.");
+        }
+        return Ok(userList);
+    }
+
     [HttpPost("login")]
     public IActionResult LoginUser([FromBody] UserInDTO loginDTO)
     {

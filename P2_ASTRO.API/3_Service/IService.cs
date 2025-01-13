@@ -9,6 +9,7 @@ public interface IUserService{
     UserOutDTO? DeleteUserById(int id);
     UserOutDTO? LoginUserByUsernameAndPassword(string userName, string Password);
     UserOutDTO? GetUserByUsername(string username);
+    IEnumerable<UserOutDTO> GetAllUsers(); 
 }
 
 public interface IReviewService{

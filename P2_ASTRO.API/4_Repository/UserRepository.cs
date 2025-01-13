@@ -31,12 +31,12 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    /*
+    
     public IEnumerable<User> GetAllUsers()
     {
-        throw new NotImplementedException();
+        return _astroContext.Users.ToList();
     }
-    */
+    
 
     public User? GetUserById(int id)
     {

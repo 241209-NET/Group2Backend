@@ -74,4 +74,10 @@ public class UserService : IUserService
 
         return _utility.UserToUserOutDTO(user);
     }
+
+    public IEnumerable<UserOutDTO> GetAllUsers()
+    {
+        var userList = _userRepository.GetAllUsers();
+        return userList.Select(_utility.UserToUserOutDTO);
+    }
 }
