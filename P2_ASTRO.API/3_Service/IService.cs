@@ -7,7 +7,7 @@ public interface IUserService{
     UserOutDTO CreateNewUser(UserInDTO newUserInDTO); 
     UserOutDTO? GetUserById(int id); 
     UserOutDTO? DeleteUserById(int id);
-    UserOutDTO? LoginUserByUsernameAndPassword(string userName, string Password);
+    UserOutDTO? LoginUser(string userName, string Password);
     UserOutDTO? GetUserByUsername(string username);
     IEnumerable<UserOutDTO> GetAllUsers(); 
 }

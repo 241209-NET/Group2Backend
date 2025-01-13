@@ -18,23 +18,38 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     public IActionResult GetUserById(int id)
     {
-        var user = _userService.GetUserById(id);
-        if (user == null)
+        try
         {
-            return NotFound("No user found for id = " + id);
+            var user = _userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("No user found for id = " + id);
+            }
+            return Ok(user);
         }
-        return Ok(user);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+        
     }
 
     [HttpGet("username/{username}")]
     public IActionResult GetUserByUsername(string username)
     {
-        var user = _userService.GetUserByUsername(username);
-        if (user == null)
+        try
         {
-            return NotFound("No user found for username = " + username);
+            var user = _userService.GetUserByUsername(username);
+            if (user == null)
+            {
+                return NotFound("No user found for username = " + username);
+            }
+            return Ok(user);
         }
-        return Ok(user);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost]
@@ -51,12 +66,19 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult DeleteUserById(int id)
     {
-        var user = _userService.DeleteUserById(id);
-        if (user == null)
+        try
         {
-            return NotFound($"No user found to delete for id = " + id);
+            var user = _userService.DeleteUserById(id);
+            if (user == null)
+            {
+                return NotFound($"No user found to delete for id = " + id);
+            }
+            return Ok(user);
         }
-        return Ok(user);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -73,11 +95,18 @@ public class UserController : ControllerBase
     [HttpPost("login")]
     public IActionResult LoginUser([FromBody] UserInDTO loginDTO)
     {
-        var user = _userService.LoginUserByUsernameAndPassword(loginDTO.Username, loginDTO.Password);
-        if (user == null)
+        try
         {
-            return Unauthorized("Invalid username or password.");
+            var user = _userService.LoginUser(loginDTO.Username, loginDTO.Password);
+            if (user == null)
+            {
+                return Unauthorized("Invalid username or password.");
+            }
+            return Ok(user);
         }
-        return Ok(user);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }

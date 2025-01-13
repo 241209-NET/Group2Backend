@@ -65,9 +65,9 @@ public class UserService : IUserService
         return _utility.UserToUserOutDTO(user);
     }
 
-    public UserOutDTO? LoginUserByUsernameAndPassword(string userName, string password)
+    public UserOutDTO? LoginUser(string userName, string password)
     {
-        var user = _userRepository.LoginUserByUsernameAndPassword(userName, password);
+        var user = _userRepository.LoginUser(userName, password);
 
         if (user is null)
             throw new UserNotFoundException();

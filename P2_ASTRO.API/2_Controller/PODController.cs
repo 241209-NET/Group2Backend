@@ -29,23 +29,37 @@ public class PODController : ControllerBase
     [HttpGet("{podId}")]
     public IActionResult GetPODById(int podId)
     {
-        var pod = _podService.GetPODbyId(podId);
-        if (pod == null)
+        try
         {
-            return NotFound("No POD found for podId = " + podId);
+            var pod = _podService.GetPODbyId(podId);
+            if (pod == null)
+            {
+                return NotFound("No POD found for podId = " + podId);
+            }
+            return Ok(pod);
         }
-        return Ok(pod);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet("date/{date}")]
     public IActionResult GetPODByDate(DateOnly date)
     {
-        var pod = _podService.GetPODbyDate(date);
-        if (pod == null)
+        try
         {
-            return NotFound("No POD found for date = " + date);
+            var pod = _podService.GetPODbyDate(date);
+            if (pod == null)
+            {
+                return NotFound("No POD found for date = " + date);
+            }
+            return Ok(pod);
         }
-        return Ok(pod);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost]

@@ -11,7 +11,7 @@ public interface IUserRepository{
     //User? GetUserByUsername(string name);
     User? DeleteUserById(int id);
 
-    User? LoginUserByUsernameAndPassword(string userName, string Password);
+    User? LoginUser(string userName, string Password);
 
     User? GetUserByUsername(string username);
 }
