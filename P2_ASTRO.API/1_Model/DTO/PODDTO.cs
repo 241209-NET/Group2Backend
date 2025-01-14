@@ -21,5 +21,4 @@ public class PODOutDTO
     public required string URL { get; set; }
 
     public List<Review> Reviews { get; set; } = []; //show relation "1" user to "N" Reviews
-    public List<User> Users { get; set; } = [];
 }
