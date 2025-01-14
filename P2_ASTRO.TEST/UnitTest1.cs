@@ -22,11 +22,11 @@ public class ServiceTest
         var expectedUser = new User() { UserId = 7, Username = "Test", Password = "Testing123", Email = "test@gmail.com"};
 
         mockRepo.Setup(repo => 
-            repo.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password))
+            repo.LoginUser(expectedUser.Username, expectedUser.Password))
             .Returns(expectedUser);
 
         // Act
-        var user = userService.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password);
+        var user = userService.LoginUser(expectedUser.Username, expectedUser.Password);
 
         // Assert
         Assert.Equal(expectedUser.UserId, user.UserId);
@@ -43,7 +43,7 @@ public class ServiceTest
         UserService userService = new UserService(mockRepo.Object, util);
 
         // Act
-        var action = () => userService.LoginUserByUsernameAndPassword("justin", "password");
+        var action = () => userService.LoginUser("justin", "password");
 
         // Assert
         Assert.Throws<LoginFailedException>(action);
@@ -80,7 +80,7 @@ public class ServiceTest
             
     }
 
-        [Fact]
+    [Fact]
     public void CreateNewReviewTest()
     {
         // Arrange
