@@ -10,7 +10,9 @@ public interface IUserService
     //UserOutDTO GetUserByUsername(string Username);
     UserOutDTO? GetUserById(int id); 
     UserOutDTO? DeleteUserById(int id);
-    UserOutDTO? LoginUserByUsernameAndPassword(string userName, string Password);
+    UserOutDTO? LoginUser(string userName, string Password);
+    UserOutDTO? GetUserByUsername(string username);
+    IEnumerable<UserOutDTO> GetAllUsers();
 }
 
 public interface IReviewService

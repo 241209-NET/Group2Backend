@@ -18,7 +18,7 @@ public class PODRepository : IPODRepository
 
     public IEnumerable<POD> GetAllPODs()
     {
-        return _astroContext.PODs.Include(r => r.Reviews).Include(u => u.Users).ToList(); //TODO might need to .Include(comments)*****************
+        return _astroContext.PODs.Include(r => r.Reviews).ThenInclude(u => u.User).ToList();
     }
 
     public POD? GetPODbyDate(DateOnly date)
@@ -30,7 +30,7 @@ public class PODRepository : IPODRepository
 
     public POD? GetPODbyId(int PODId)
     {
-        POD? pod = _astroContext.PODs.FirstOrDefault(p => p.PODId == PODId);
+        POD? pod = _astroContext.PODs.Include(r => r.Reviews).ThenInclude(u => u.User).FirstOrDefault(p => p.PODId == PODId);
         if(pod is null) return null;
         return pod;
     }

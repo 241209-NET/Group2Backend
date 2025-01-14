@@ -43,7 +43,14 @@ public class UserRepository : IUserRepository
         return _astroContext.Users.FirstOrDefault(u => u.UserId == id);
     }
 
-    public User? LoginUserByUsernameAndPassword(string userName, string Password)
+    public User? GetUserByUsername(string userName)
+    {
+        var user = _astroContext.Users.FirstOrDefault(u => u.Username == userName);
+        if(user is null) return null;
+        return user;
+    }
+
+    public User? LoginUser(string userName, string Password)
     {
         var user = _astroContext.Users.FirstOrDefault(u => u.Username == userName && u.Password == Password);
         if(user is null) return null;

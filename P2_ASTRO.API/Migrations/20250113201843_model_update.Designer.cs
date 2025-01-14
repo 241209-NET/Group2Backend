@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P2_ASTRO.API.Data;
 
@@ -11,9 +12,11 @@ using P2_ASTRO.API.Data;
 namespace P2_ASTRO.API.Migrations
 {
     [DbContext(typeof(AstroContext))]
-    partial class AstroContextModelSnapshot : ModelSnapshot
+    [Migration("20250113201843_model_update")]
+    partial class model_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,8 +84,6 @@ namespace P2_ASTRO.API.Migrations
 
                     b.HasIndex("PODId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Reviews");
                 });
 
@@ -97,6 +98,9 @@ namespace P2_ASTRO.API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PODId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -106,6 +110,8 @@ namespace P2_ASTRO.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("PODId");
 
                     b.ToTable("Users");
                 });
@@ -117,19 +123,20 @@ namespace P2_ASTRO.API.Migrations
                         .HasForeignKey("PODId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("P2_ASTRO.API.Model.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+            modelBuilder.Entity("P2_ASTRO.API.Model.User", b =>
+                {
+                    b.HasOne("P2_ASTRO.API.Model.POD", null)
+                        .WithMany("Users")
+                        .HasForeignKey("PODId");
                 });
 
             modelBuilder.Entity("P2_ASTRO.API.Model.POD", b =>
                 {
                     b.Navigation("Reviews");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

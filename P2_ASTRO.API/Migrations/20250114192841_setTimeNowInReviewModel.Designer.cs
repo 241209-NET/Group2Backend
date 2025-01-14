@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P2_ASTRO.API.Data;
 
@@ -11,9 +12,11 @@ using P2_ASTRO.API.Data;
 namespace P2_ASTRO.API.Migrations
 {
     [DbContext(typeof(AstroContext))]
-    partial class AstroContextModelSnapshot : ModelSnapshot
+    [Migration("20250114192841_setTimeNowInReviewModel")]
+    partial class setTimeNowInReviewModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,9 +70,6 @@ namespace P2_ASTRO.API.Migrations
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CommentTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("PODId")
                         .HasColumnType("int");

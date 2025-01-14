@@ -17,8 +17,8 @@ public class ReviewService : IReviewService
     public ReviewOutDTO CreateNewReview(ReviewInDTO newReviewInDTO)
     {
         var review = _utility.ReviewInDTOToReview(newReviewInDTO);
-        var newReview = _reviewRepository.CreateNewReview(review);
-
+        review.CommentTime = DateTime.UtcNow;
+        var newReview = _reviewRepository.CreateNewReview(review);        
         return _utility.ReviewToReviewOutDTO(newReview);
     }
 

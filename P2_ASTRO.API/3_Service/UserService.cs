@@ -52,13 +52,26 @@ public class UserService : IUserService
         return _utility.UserToUserOutDTO(user);
     }
 
-    public UserOutDTO? LoginUserByUsernameAndPassword(string userName, string password)
+    public UserOutDTO? GetUserByUsername(string username)
     {
-        var user = _userRepository.LoginUserByUsernameAndPassword(userName, password);
+        var user = _userRepository.GetUserByUsername(username);
+        if(user is null) return null;
+        return _utility.UserToUserOutDTO(user);
+    }
+
+    public UserOutDTO? LoginUser(string userName, string password)
+    {
+        var user = _userRepository.LoginUser(userName, password);
 
         if (user is null)
             throw new LoginFailedException();
 
         return _utility.UserToUserOutDTO(user);
+    }
+
+    public IEnumerable<UserOutDTO> GetAllUsers()
+    {
+        var userList = _userRepository.GetAllUsers();
+        return userList.Select(_utility.UserToUserOutDTO);
     }
 }

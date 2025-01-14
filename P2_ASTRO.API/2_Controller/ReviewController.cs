@@ -24,17 +24,26 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet("{reviewId}")]
-    public IActionResult GetReviewById(int reviewId){
-        var review = _reviewService.GetReviewById(reviewId);
-        if(review is null)
+    public IActionResult GetReviewById(int reviewId)
+    {
+        try
         {
-            return NotFound("No reviews found for reviewId = " + reviewId);
+            var review = _reviewService.GetReviewById(reviewId);
+            if(review is null)
+            {
+                return NotFound("No reviews found for reviewId = " + reviewId);
+            }
+            return Ok(review);
         }
-        return Ok(review);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost]
-    public IActionResult CreateNewReview([FromBody] ReviewInDTO newReviewInDTO){
+    public IActionResult CreateNewReview([FromBody] ReviewInDTO newReviewInDTO)
+    {
         var review = _reviewService.CreateNewReview(newReviewInDTO);
         if(review is null){
             return BadRequest("Wrong format input for createNewReview");
@@ -43,12 +52,20 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet("user/{userId}")]
-    public IActionResult GetReviewsByUserId(int userId){
-        var review = _reviewService.GetReviewsByUserId(userId);
-        if(review is null)
+    public IActionResult GetReviewsByUserId(int userId)
+    {
+        try
         {
-            return NotFound("No reviews found for userId = " + userId);
+            var review = _reviewService.GetReviewsByUserId(userId);
+            if(review is null)
+            {
+                return NotFound("No reviews found for userId = " + userId);
+            }
+            return Ok(review);
         }
-        return Ok(review);
+        catch(Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }
