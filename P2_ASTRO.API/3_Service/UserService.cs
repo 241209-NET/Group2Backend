@@ -15,6 +15,12 @@ public class UserService : IUserService
         _utility = utility;
     }
 
+    public IEnumerable<UserOutDTO> GetAllUsers()
+    {
+        var users = _userRepository.GetAllUsers();
+        return users.Select(_utility.UserToUserOutDTO);
+    }
+
     public UserOutDTO CreateNewUser(UserInDTO newUserInDTO)
     {
         var user = _utility.UserInDTOToUser(newUserInDTO);
@@ -35,18 +41,6 @@ public class UserService : IUserService
 
         throw new UserNotFoundException();
     }
-
-    /*
-        public Order DeleteOrderById(int id)
-    {
-        var order = GetOrderById(id);
-
-        if(order is not null) 
-            _OrderRepository.DeleteOrderById(id);
-
-        return order!;
-    }
-    */
 
     public UserOutDTO? GetUserById(int id)
     {
@@ -70,7 +64,7 @@ public class UserService : IUserService
         var user = _userRepository.LoginUser(userName, password);
 
         if (user is null)
-            throw new UserNotFoundException();
+            throw new LoginFailedException();
 
         return _utility.UserToUserOutDTO(user);
     }

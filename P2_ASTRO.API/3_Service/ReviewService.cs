@@ -33,7 +33,7 @@ public class ReviewService : IReviewService
     {
         var review = _reviewRepository.GetReviewById(id);
 
-        if(review is null) 
+        if(review is null)
             throw new ReviewNotFoundException();
 
         return _utility.ReviewToReviewOutDTO(review);

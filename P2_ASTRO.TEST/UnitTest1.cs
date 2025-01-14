@@ -5,13 +5,52 @@ using P2_ASTRO.API.Service;
 using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Util;
 using P2_ASTRO.API.DTO;
-using NuGet.Frameworks;
 
 namespace P2_ASTRO.TEST;
 
-public class UnitTest1
+public class ServiceTest
 {
-     #region CreateTests
+    #region LoginTests
+    [Fact]
+    public void LoginTest_Succeeded()
+    {
+        // Arrage
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new UserService(mockRepo.Object, util);
+
+        var expectedUser = new User() { UserId = 7, Username = "Test", Password = "Testing123", Email = "test@gmail.com"};
+
+        mockRepo.Setup(repo => 
+            repo.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password))
+            .Returns(expectedUser);
+
+        // Act
+        var user = userService.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password);
+
+        // Assert
+        Assert.Equal(expectedUser.UserId, user.UserId);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Email, user.Email);
+    }
+
+        [Fact]
+    public void LoginTest_Failed()
+    {
+        // Arrage
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new UserService(mockRepo.Object, util);
+
+        // Act
+        var action = () => userService.LoginUserByUsernameAndPassword("justin", "password");
+
+        // Assert
+        Assert.Throws<LoginFailedException>(action);
+    }
+    #endregion
+
+    #region CreateTests
     [Fact]
     public void CreateNewUserTest()
     {
@@ -30,7 +69,7 @@ public class UnitTest1
         mockRepo.Setup(repo => repo.CreateNewUser(It.IsAny<User>())).Returns(expectedUser);
 
         // Act
-        var newUserInDTO =  new UserInDTO(){Username = "JTheyskens", Password = "password3"};
+        var newUserInDTO =  new UserInDTO(){Username = "JTheyskenqs", Password = "password3"};
         var newUser = userService.CreateNewUser(newUserInDTO);
         newUser.UserId = 7;
 
@@ -111,6 +150,45 @@ public class UnitTest1
     #endregion
 
     #region GetAllTests
+
+    [Fact]
+    public void GetAllUsersTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        var userList = new List<User>
+        {
+            new User(){UserId = 1, Username = "Test User 1", Password = "password1", Email = "testme1@hotmail.com"},
+            new User(){UserId = 2, Username = "Test User 2", Password = "password2", Email = "testme2@hotmail.com"},
+            new User(){UserId = 3, Username = "Test User 3", Password = "password3", Email = "testme3@hotmail.com"},
+            new User(){UserId = 4, Username = "Test User 4", Password = "password4", Email = "testme4@hotmail.com"}
+        };
+
+        mockRepo.Setup(repo => repo.GetAllUsers()).Returns(userList);
+
+        var dtoList = new List<UserOutDTO>();
+        foreach(var u in userList)
+        {
+            var dto = util.UserToUserOutDTO(u);
+            dtoList.Add(dto);
+        }
+        
+        //Act
+        var result = userService.GetAllUsers().ToList();
+        
+        //Assert
+        for (int i = 0; i < dtoList.Count; i++)
+        {
+            Assert.Equal(dtoList[i].UserId, result[i].UserId);
+            Assert.Equal(dtoList[i].Username, result[i].Username);
+            Assert.Equal(dtoList[i].Email, result[i].Email);
+        }
+
+
+    }
 
     [Fact]
     public void GetAllReviewsTest()
@@ -232,35 +310,35 @@ public class UnitTest1
         Assert.Equal(expectedUser.Email, user.Email);
     }
 
-    // [Fact]
-    // public void GetReviewById()
-    // {
-    //     // Arrange
-    //     Mock<IReviewRepository> mockRepo = new();
-    //     API.Util.Utility util = new();
-    //     ReviewService reviewService = new (mockRepo.Object, util);
+    [Fact]
+    public void GetReviewById()
+    {
+        // Arrange
+        Mock<IReviewRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        ReviewService reviewService = new (mockRepo.Object, util);
 
-    //     var expectedReview = new Review() 
-    //     {
-    //         Comment = "This is a test comment!", 
-    //         ReviewId = 1,
-    //         UserId = 11,
-    //         PODId = 111,
-    //         CommentTime = DateTime.UtcNow,
-    //     };
+        var expectedReview = new Review() 
+        {
+            Comment = "This is a test comment!", 
+            ReviewId = 1,
+            UserId = 11,
+            PODId = 111,
+            CommentTime = DateTime.UtcNow,
+        };
 
-    //     mockRepo.Setup(repo => repo.GetReviewById(expectedReview.ReviewId)).Returns(expectedReview);
+        mockRepo.Setup(repo => repo.GetReviewById(expectedReview.ReviewId)).Returns(expectedReview);
 
-    //     // Act
-    //     var review = reviewService.GetReviewById(expectedReview.UserId);
+        // Act
+        var review = reviewService.GetReviewById(expectedReview.ReviewId);
 
-    //     Assert.NotNull(review);
-    //     Assert.Equal(expectedReview.Comment, review.Comment);
-    //     Assert.Equal(expectedReview.CommentTime, review.CommentTime);
-    //     Assert.Equal(expectedReview.UserId, review.UserId);
-    //     Asset.Equal(expectedReview.ReviewId, review.ReviewId);
+        Assert.NotNull(review);
+        Assert.Equal(expectedReview.Comment, review.Comment);
+        Assert.Equal(expectedReview.CommentTime, review.CommentTime);
+        Assert.Equal(expectedReview.UserId, review.UserId);
+        Assert.Equal(expectedReview.ReviewId, review.ReviewId);
 
-    // }
+    }
 
     [Fact]
     public void GetPODbyIdTest()
@@ -273,8 +351,7 @@ public class UnitTest1
         var expectedPOD = new POD() {PODId = 123, Title = "Title", URL = "www.test.com", Explanation = "test", Date = DateOnly.FromDateTime(DateTime.UtcNow)};
 
         mockRepo.Setup(repo => repo.GetPODbyId(expectedPOD.PODId)).Returns(expectedPOD);
-
-        
+   
         // Act
         var pod = podService.GetPODbyId(expectedPOD.PODId);
 
@@ -335,22 +412,17 @@ public class UnitTest1
 
     #region ExceptionTests
     [Fact]
-    public void UserNotFoundExceptionTest()
+    public void UserNotFoundExceptionTest_OnGet()
     {
         // Arrange
         Mock<IUserRepository> mockRepo = new();
         API.Util.Utility util = new();
         UserService userService = new (mockRepo.Object, util);
 
-        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null!);
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
 
         // Act
-        var newUser =  new User()
-        {
-            Username = "NotFoundUser", 
-            Password = "exception"
-        };
-
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
         var id = newUser.UserId;
         var action = () => userService.GetUserById(id); 
 
@@ -358,8 +430,28 @@ public class UnitTest1
         Assert.Throws<UserNotFoundException>(action);
     }
 
+    [Fact]
+    public void UserNotFoundExceptionTest_OnDelete()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
+
+        // Act
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
+        var id = newUser.UserId;
+        var action = () => userService.DeleteUserById(id+1); 
+
+        // Assert
+        Assert.Throws<UserNotFoundException>(action);
+    }
+
+
         [Fact]
-    public void ReviewNotFoundExceptionTest()
+    public void ReviewNotFoundExceptionTest_OnGet()
     {
         // Arrange
         Mock<IReviewRepository> mockRepo = new();
@@ -384,7 +476,32 @@ public class UnitTest1
     }
 
         [Fact]
-    public void PODNotFoundExceptionTest()
+    public void ReviewNotFoundExceptionTest_OnDelete()
+    {
+        // Arrange
+        Mock<IReviewRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        ReviewService reviewService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetReviewById(It.IsAny<int>())).Returns((Review)null!);
+
+        // Act
+        var newUser =  new Review()
+        {
+            Comment = "NotFoundReview", 
+            UserId = 1,
+            PODId = 1
+        };
+
+        var id = newUser.UserId;
+        var action = () => reviewService.DeleteReviewById(id); 
+
+        // Assert
+        Assert.Throws<ReviewNotFoundException>(action);
+    }
+
+        [Fact]
+    public void PODNotFoundExceptionTest_OnGet()
     {
         // Arrange
         Mock<IPODRepository> mockRepo = new();
@@ -408,5 +525,31 @@ public class UnitTest1
         // Assert
         Assert.Throws<PODNotFoundException>(action);
     }
+
+    //     [Fact]
+    // public void PODNotFoundExceptionTest_OnDelete()
+    // {
+    //     // Arrange
+    //     Mock<IPODRepository> mockRepo = new();
+    //     API.Util.Utility util = new();
+    //     PODService podService = new (mockRepo.Object, util);
+
+    //     mockRepo.Setup(repo => repo.GetPODbyId(It.IsAny<int>())).Returns((POD)null!);
+
+    //     // Act
+    //     var newPOD =  new POD()
+    //     {
+    //         PODId = 1,
+    //         URL = "www.test.com",
+    //         Title = "Test",
+    //         Explanation = "This is a test"
+    //     };
+
+    //     var id = newPOD.PODId;
+    //     var action = () => podService.DeletePODbyId(id); 
+
+    //     // Assert
+    //     Assert.Throws<PODNotFoundException>(action);
+    // }
     #endregion
 }

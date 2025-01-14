@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using P2_ASTRO.API.DTO;
+using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Service;
 
 namespace P2_ASTRO.API.Controller;
@@ -13,6 +14,16 @@ public class UserController : ControllerBase
     public UserController(IUserService userService)
     {
         _userService = userService;
+    }
+
+        public IActionResult GetAllReviews()
+    {
+        var userList = _userService.GetAllUsers();
+
+        if(userList is null || !userList.Any()) 
+            throw new UserNotFoundException();
+
+        return Ok(userList);
     }
 
     [HttpGet("{id}")]
@@ -34,6 +45,7 @@ public class UserController : ControllerBase
         
     }
 
+/*
     [HttpGet("username/{username}")]
     public IActionResult GetUserByUsername(string username)
     {
@@ -51,6 +63,7 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    */
 
     [HttpPost]
     public IActionResult CreateNewUser([FromBody] UserInDTO newUserInDTO)
