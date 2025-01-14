@@ -8,8 +8,48 @@ using P2_ASTRO.API.DTO;
 
 namespace P2_ASTRO.TEST;
 
-public class UnitTest1
+public class ServiceTest
 {
+    #region LoginTests
+    [Fact]
+    public void LoginTest_Succeeded()
+    {
+        // Arrage
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new UserService(mockRepo.Object, util);
+
+        var expectedUser = new User() { UserId = 7, Username = "Test", Password = "Testing123", Email = "test@gmail.com"};
+
+        mockRepo.Setup(repo => 
+            repo.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password))
+            .Returns(expectedUser);
+
+        // Act
+        var user = userService.LoginUserByUsernameAndPassword(expectedUser.Username, expectedUser.Password);
+
+        // Assert
+        Assert.Equal(expectedUser.UserId, user.UserId);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Email, user.Email);
+    }
+
+        [Fact]
+    public void LoginTest_Failed()
+    {
+        // Arrage
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new UserService(mockRepo.Object, util);
+
+        // Act
+        var action = () => userService.LoginUserByUsernameAndPassword("justin", "password");
+
+        // Assert
+        Assert.Throws<LoginFailedException>(action);
+    }
+    #endregion
+
     #region CreateTests
     [Fact]
     public void CreateNewUserTest()

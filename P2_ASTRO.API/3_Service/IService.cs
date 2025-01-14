@@ -6,9 +6,7 @@ namespace P2_ASTRO.API.Service;
 public interface IUserService
 {
     UserOutDTO CreateNewUser(UserInDTO newUserInDTO); 
-
     IEnumerable<UserOutDTO> GetAllUsers();
-
     //UserOutDTO GetUserByUsername(string Username);
     UserOutDTO? GetUserById(int id); 
     UserOutDTO? DeleteUserById(int id);
