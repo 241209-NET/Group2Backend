@@ -16,16 +16,6 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-        public IActionResult GetAllReviews()
-    {
-        var userList = _userService.GetAllUsers();
-
-        if(userList is null || !userList.Any()) 
-            throw new UserNotFoundException();
-
-        return Ok(userList);
-    }
-
     [HttpGet("{id}")]
     public IActionResult GetUserById(int id)
     {
@@ -95,7 +85,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllReviews()
+    public IActionResult GetAllUsers()
     {
         var userList = _userService.GetAllUsers();
         if(userList is null || !userList.Any()) 
