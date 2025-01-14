@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using P2_ASTRO.API.DTO;
+using P2_ASTRO.API.Exceptions;
 using P2_ASTRO.API.Service;
 
 namespace P2_ASTRO.API.Controller;
@@ -10,18 +11,15 @@ namespace P2_ASTRO.API.Controller;
 public class ReviewController : ControllerBase
 {
     private readonly IReviewService _reviewService;
-    public ReviewController(IReviewService reviewService){
-        _reviewService = reviewService;
-    } 
+    public ReviewController(IReviewService reviewService) => _reviewService = reviewService;
 
     [HttpGet]
     public IActionResult GetAllReviews()
     {
         var reviewList = _reviewService.GetAllReviews();
         if(reviewList is null || !reviewList.Any()) 
-        {
-            return NotFound("No reviews found.");
-        }
+            throw new ReviewNotFoundException();
+
         return Ok(reviewList);
     }
 
