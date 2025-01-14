@@ -36,18 +36,6 @@ public class UserService : IUserService
         throw new UserNotFoundException();
     }
 
-    /*
-        public Order DeleteOrderById(int id)
-    {
-        var order = GetOrderById(id);
-
-        if(order is not null) 
-            _OrderRepository.DeleteOrderById(id);
-
-        return order!;
-    }
-    */
-
     public UserOutDTO? GetUserById(int id)
     {
         var user = _userRepository.GetUserById(id);

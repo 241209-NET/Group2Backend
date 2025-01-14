@@ -11,9 +11,4 @@ public class AstroContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<POD> PODs { get; set; }
-
-    internal void CreateNewReview(Review newReview)
-    {
-        throw new NotImplementedException();
-    }
 }

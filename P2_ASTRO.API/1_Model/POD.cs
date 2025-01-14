@@ -9,5 +9,5 @@ public class POD{
     public required string Title { get; set; }
     public required string URL { get; set; }
 
-    public List<Review> Reviews { get; set; } = []; //show relation "1" user to "N" Reviews
+    public List<Review> Reviews { get; set; } = [];
 }

@@ -51,9 +51,6 @@ public class Utility{
     //PODs' DTO Conversion
     public PODOutDTO PODToPODOutDTO(POD pod)
     {
-        // add review service
-        // var 
-        // var reviewService = new ReviewService()
         return new PODOutDTO{
             PODId = pod.PODId,
             Copyright = pod.Copyright,

@@ -31,13 +31,11 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    
     public IEnumerable<User> GetAllUsers()
     {
         return _astroContext.Users.ToList();
     }
     
-
     public User? GetUserById(int id)
     {
         return _astroContext.Users.FirstOrDefault(u => u.UserId == id);
