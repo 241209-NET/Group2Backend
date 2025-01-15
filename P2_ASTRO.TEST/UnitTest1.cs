@@ -29,7 +29,7 @@ public class ServiceTest
         var user = userService.LoginUser(expectedUser.Username, expectedUser.Password);
 
         // Assert
-        Assert.Equal(expectedUser.UserId, user.UserId);
+        Assert.Equal(expectedUser.UserId, user!.UserId);
         Assert.Equal(expectedUser.Username, user.Username);
         Assert.Equal(expectedUser.Email, user.Email);
     }
@@ -365,6 +365,127 @@ public class ServiceTest
     }
     #endregion
 
+    #region GetByUsernameTest
+
+    [Fact]
+    public void GetUserByUsernameTest()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        var expectedUser = new User() {Username = "TestUser1", Password = "Password1", UserId = 1, Email = "Test1@gmail.com"};
+
+        mockRepo.Setup(repo => repo.GetUserByUsername(expectedUser.Username)).Returns(expectedUser);
+
+        // Act
+        var user = userService.GetUserByUsername(expectedUser.Username);
+
+        // Assert
+        Assert.NotNull(user);
+        Assert.Equal(expectedUser.UserId, user.UserId);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Username, user.Username);
+        Assert.Equal(expectedUser.Email, user.Email);
+
+    }
+    #endregion
+
+    #region ObjectListTests
+    [Fact]
+    public void GetPODReviewsTest()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        Utility util = new();
+        PODService podService = new(mockRepo.Object, util);
+
+        Mock<IReviewRepository> mockRevRepo = new();
+        ReviewService reviewService = new(mockRevRepo.Object, util);
+
+        var pod = new POD() {PODId = 1, Title = "Title", Explanation = "test", URL = "www.Test.com" };
+
+        var revList = new List<Review>
+        {
+            new Review() {PODId = 1, Comment = "First!" },
+            new Review() {PODId = 1, Comment = "Second!" },
+            new Review() {PODId = 1, Comment = "Third!" },
+
+        };
+
+        mockRepo.Setup(repo => repo.GetPODbyId(pod.PODId)).Returns(pod);
+        mockRevRepo.Setup(rep => rep.GetAllReviews()).Returns(revList);
+        mockRepo.Setup(re => re.SetPODReviews(pod.PODId)).Returns(revList);
+
+        podService.SetPODReviews(pod.PODId);
+
+        // Act
+        var expectedPOD = podService.GetPODbyId(pod.PODId);
+
+        //Assert
+        Assert.NotNull(expectedPOD.Reviews);
+        
+        Assert.Contains(revList[0], expectedPOD.Reviews);
+        Assert.Contains(revList[1], expectedPOD.Reviews);
+        Assert.Contains(revList[2], expectedPOD.Reviews);
+        
+
+    }
+
+      [Fact]
+    public void GetPODUsersTest()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        Utility util = new();
+        PODService podService = new(mockRepo.Object, util);
+
+        Mock<IReviewRepository> mockRevRepo = new();
+        ReviewService reviewService = new(mockRevRepo.Object, util);
+
+        Mock<IUserRepository> mockUserRepo = new();
+        UserService userService = new(mockUserRepo.Object, util);
+
+        var userList = new List<User>
+        {
+            new User() {UserId = 1, Password = "test", Username = "Test" },
+            new User() {UserId = 2, Password = "zest", Username = "Zest" }
+        };
+
+        var user1 = userList[0];
+        var user2 = userList[1];
+
+        var pod = new POD() {PODId = 1, Title = "Title", Explanation = "test", URL = "www.Test.com" };
+
+        var revList = new List<Review>
+        {
+            new Review() {User = user1, PODId = 1, Comment = "First!" },
+            new Review() {User = user2, PODId = 1, Comment = "Second!" },
+            new Review() {User = user1, PODId = 1, Comment = "Third!" },
+
+        };
+
+        mockRepo.Setup(repo => repo.GetPODbyId(pod.PODId)).Returns(pod);
+        mockRevRepo.Setup(rep => rep.GetAllReviews()).Returns(revList);
+        mockRepo.Setup(re => re.SetPODReviews(pod.PODId)).Returns(revList);
+
+        mockUserRepo.Setup(r => r.GetAllUsers()).Returns(userList);
+
+        podService.SetPODReviews(pod.PODId);
+
+        // Act
+        var expectedPOD = podService.GetPODbyId(pod.PODId);
+
+        // Assert
+        Assert.NotNull(expectedPOD.Reviews);
+        
+        Assert.Equal(userList[0], expectedPOD.Reviews[0].User);
+        Assert.Equal(userList[1], expectedPOD.Reviews[1].User);
+        Assert.Equal(userList[0], expectedPOD.Reviews[2].User);
+    }
+    #endregion
+
     #region DeleteTests
 
     [Fact]
@@ -411,6 +532,7 @@ public class ServiceTest
     #endregion
 
     #region ExceptionTests
+
     [Fact]
     public void UserNotFoundExceptionTest_OnGet()
     {
@@ -419,12 +541,31 @@ public class ServiceTest
         API.Util.Utility util = new();
         UserService userService = new (mockRepo.Object, util);
 
-        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null!);
 
         // Act
         var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
         var id = newUser.UserId;
         var action = () => userService.GetUserById(id); 
+
+        // Assert
+        Assert.Throws<UserNotFoundException>(action);
+    }
+
+      [Fact]
+    public void UserNotFoundExceptionTest_OnGetByUsername()
+    {
+        // Arrange
+        Mock<IUserRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        UserService userService = new (mockRepo.Object, util);
+
+        mockRepo.Setup(repo => repo.GetUserByUsername(It.IsAny<string>())).Returns((User)null!);
+
+        // Act
+        var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
+
+        var action = () => userService.GetUserByUsername("wrongUsername"); 
 
         // Assert
         Assert.Throws<UserNotFoundException>(action);
@@ -438,7 +579,7 @@ public class ServiceTest
         API.Util.Utility util = new();
         UserService userService = new (mockRepo.Object, util);
 
-        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null);
+        mockRepo.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns((User)null!);
 
         // Act
         var newUser =  new User(){Username = "NotFoundUser", Password = "exception"};
@@ -500,7 +641,9 @@ public class ServiceTest
         Assert.Throws<ReviewNotFoundException>(action);
     }
 
-        [Fact]
+    
+
+    [Fact]
     public void PODNotFoundExceptionTest_OnGet()
     {
         // Arrange
@@ -526,30 +669,45 @@ public class ServiceTest
         Assert.Throws<PODNotFoundException>(action);
     }
 
-    //     [Fact]
-    // public void PODNotFoundExceptionTest_OnDelete()
-    // {
-    //     // Arrange
-    //     Mock<IPODRepository> mockRepo = new();
-    //     API.Util.Utility util = new();
-    //     PODService podService = new (mockRepo.Object, util);
+        [Fact]
+    public void PODNotFoundExceptionTest_OnGetByDate()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        API.Util.Utility util = new();
+        PODService podService = new (mockRepo.Object, util);
 
-    //     mockRepo.Setup(repo => repo.GetPODbyId(It.IsAny<int>())).Returns((POD)null!);
+        mockRepo.Setup(repo => repo.GetPODbyDate(DateOnly.FromDateTime(DateTime.Now))).Returns((POD)null!);
 
-    //     // Act
-    //     var newPOD =  new POD()
-    //     {
-    //         PODId = 1,
-    //         URL = "www.test.com",
-    //         Title = "Test",
-    //         Explanation = "This is a test"
-    //     };
+        // Act
+        var newPOD =  new POD()
+        {
+            PODId = 1,
+            URL = "www.test.com",
+            Title = "Test",
+            Explanation = "This is a test"
+        };
 
-    //     var id = newPOD.PODId;
-    //     var action = () => podService.DeletePODbyId(id); 
+        var id = newPOD.PODId;
+        var action = () => podService.GetPODbyDate(DateOnly.FromDateTime(DateTime.Now)); 
 
-    //     // Assert
-    //     Assert.Throws<PODNotFoundException>(action);
-    // }
+        // Assert
+        Assert.Throws<PODNotFoundException>(action);
+    }
+
+    [Fact]
+    public void PODNotFoundExceptionTest_OnSetReviews()
+    {
+        // Arrange
+        Mock<IPODRepository> mockRepo = new();
+        Utility util = new();
+        PODService podService = new(mockRepo.Object, util);
+
+        // Act
+        var action = () => podService.GetPODbyId(12); 
+
+        // Assert
+        Assert.Throws<PODNotFoundException>(action);
+    }
     #endregion
 }
