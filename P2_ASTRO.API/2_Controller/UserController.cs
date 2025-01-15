@@ -34,8 +34,7 @@ public class UserController : ControllerBase
         }
         
     }
-
-/*
+    
     [HttpGet("username/{username}")]
     public IActionResult GetUserByUsername(string username)
     {
@@ -53,7 +52,7 @@ public class UserController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    */
+    
 
     [HttpPost]
     public IActionResult CreateNewUser([FromBody] UserInDTO newUserInDTO)

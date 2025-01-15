@@ -55,7 +55,10 @@ public class UserService : IUserService
     public UserOutDTO? GetUserByUsername(string username)
     {
         var user = _userRepository.GetUserByUsername(username);
-        if(user is null) return null;
+        
+        if(user is null)
+             throw new UserNotFoundException();
+
         return _utility.UserToUserOutDTO(user);
     }
 
