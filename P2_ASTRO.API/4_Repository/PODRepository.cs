@@ -23,7 +23,7 @@ public class PODRepository : IPODRepository
 
     public POD? GetPODbyDate(DateOnly date)
     {
-        POD? pod = _astroContext.PODs.FirstOrDefault(p => p.Date == date);
+        POD? pod = _astroContext.PODs.Include(r => r.Reviews).ThenInclude(u => u.User).FirstOrDefault(p => p.Date == date);
         if(pod is null) return null;
         return pod;
     }
