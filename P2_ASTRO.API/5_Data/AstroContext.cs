@@ -9,6 +9,6 @@ public class AstroContext : DbContext
     public AstroContext(DbContextOptions<AstroContext> options) : base(options){}
 
     public DbSet<User> Users { get; set; }
-    public DbSet<Review> Contacts { get; set; }
+    public DbSet<Review> Reviews { get; set; }
     public DbSet<POD> PODs { get; set; }
 }

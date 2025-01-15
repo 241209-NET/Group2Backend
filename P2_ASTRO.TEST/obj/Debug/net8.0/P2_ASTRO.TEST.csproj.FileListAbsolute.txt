@@ -1,7 +1,0 @@
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\bin\Debug\net8.0\CoverletSourceRootsMapping_P2_ASTRO.TEST
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.csproj.AssemblyReference.cache
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.AssemblyInfoInputs.cache
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.AssemblyInfo.cs
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.csproj.CoreCompileInputs.cache
-C:\Users\justi\Desktop\Revature\Work\Project 2\P2_ASTRO.TEST\obj\Debug\net8.0\P2_ASTRO.TEST.sourcelink.json
