@@ -2,7 +2,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace P2_ASTRO.API.Model;
 
-public class User{
+public class User
+{
     public int UserId { get; set; }
     public required string Username { get; set; }
     [EmailAddress]

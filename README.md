@@ -35,14 +35,16 @@ Astro will be a place where astonomy lovers can meet up and talk about astonomy.
 
 
 ## User Stories
-- User login
+- User can log in to their account.
 - User can browse NASA images.
-- User can search NASA images by date
-- User can search NASA images by start date and end date.
+- User can search NASA images by date.
 - Users can leave comments on pictures.
+- Users can view comments left by others.
 
 ## ER Diagram
-![alt text](image.png)
+[//]: # " ![alt text](image.png) "
+![image](https://github.com/user-attachments/assets/b335bfac-1b7c-4ec5-bbb4-c647a0cf26f9)
+
 
 ## MVP Goals
 - Database of Users

@@ -34,4 +34,16 @@ public class PODRepository : IPODRepository
         if(pod is null) return null;
         return pod;
     }
+
+    public List<Review> SetPODReviews(int id)
+    {
+        List<Review> list = new();
+        var reviews = _astroContext.Reviews.Where(p => p.PODId == id);
+        foreach( var r in reviews)
+        {
+            list.Add(r);
+        }
+
+        return list;
+    }
 }

@@ -40,4 +40,6 @@ public interface IPODRepository{
     POD CreateNewPOD(POD newPOD);
 
     POD? GetPODbyId(int PODId);
+
+    List<Review> SetPODReviews(int PODId);
 }
