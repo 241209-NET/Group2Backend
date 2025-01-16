@@ -43,7 +43,9 @@ Astro will be a place where astonomy lovers can meet up and talk about astonomy.
 
 ## ER Diagram
 [//]: # " ![alt text](image.png) "
-![image](https://github.com/user-attachments/assets/b335bfac-1b7c-4ec5-bbb4-c647a0cf26f9)
+[//]: # " ![image](https://github.com/user-attachments/assets/b335bfac-1b7c-4ec5-bbb4-c647a0cf26f9) "
+![image](https://github.com/user-attachments/assets/91246859-0034-4b33-93a2-a5088b59a178)
+
 
 
 ## MVP Goals
