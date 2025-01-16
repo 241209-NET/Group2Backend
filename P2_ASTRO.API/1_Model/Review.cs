@@ -1,6 +1,7 @@
 namespace P2_ASTRO.API.Model;
 
-public class Review{
+public class Review
+{
     public int ReviewId { get; set; }
     public int UserId { get; set; }
     public int PODId { get; set; }

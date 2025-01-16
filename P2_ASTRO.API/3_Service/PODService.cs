@@ -47,4 +47,14 @@ public class PODService : IPODService
 
         return _utility.PODToPODOutDTO(pod);
     }
+
+    public void SetPODReviews(int PODId)
+    {
+        var pod = _podRepository.GetPODbyId(PODId);
+
+        if (pod is null) 
+            throw new PODNotFoundException();
+
+        pod.Reviews = _podRepository.SetPODReviews(PODId);   
+    }
 }
