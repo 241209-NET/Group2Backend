@@ -6,6 +6,9 @@ Astro is a full stack application where users can browse NASA images and communi
 Users are allowed to search for previous NASA pictures of the day as well as view and write comments.
 Astro will be a place where astonomy lovers can meet up and talk about astonomy.
 
+## Front-End Repository
+    - https://github.com/241209-NET/Group2Frontend
+
 
 ## Project Members
     - Praween Pongpat
